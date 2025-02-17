@@ -21,11 +21,13 @@ const Signup = () => {
         email,
         password,
       }, { withCredentials: true });
-      const {message} = loginResponse.data;
-      console.log(message);
+      console.log(loginResponse.data);
+      const { message } = loginResponse.data;
+      console.log(loginResponse.data.role);
       if (message === "로그인 성공") {
         // 로그인 성공 시 상태 업데이트
         setItem('isLoggedin', true);
+        setItem('Role', loginResponse.data.role);
         navigate('/');  // 메인 페이지로 리디렉션
       } else {
         setItem('isLoggedin', false);

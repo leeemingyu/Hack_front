@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getItem, setItem } from '../../utils/localStorage';
+import { getItem, setItem, removeItem } from '../../utils/localStorage';
 
 const Logout = () => {
   const [isLoggedOut, setIsLoggedOut] = useState(false); // 로그아웃 상태 관리
@@ -13,6 +13,7 @@ const Logout = () => {
       try {
         await axios.post(`${URL}/auth/logout`);
         setItem('isLoggedin', false); // 로그아웃 상태 로컬스토리지에 저장
+        removeItem('role');
         setIsLoggedOut(true); // 로그아웃 완료 후 상태 업데이트
       } catch (error) {
         console.error("Logout failed", error);
