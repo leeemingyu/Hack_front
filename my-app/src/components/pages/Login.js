@@ -15,7 +15,8 @@ const Login = () => {
         password,
       },{withCredentials: true});
       
-      const { message, role } = response.data;  // 서버 응답에서 토큰 추출
+      const { message, role } = response.data;
+      console.log(role);
       if(message=="로그인 성공"){
         setItem('isLoggedin', true);
         setItem('Role', role);
