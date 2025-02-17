@@ -15,11 +15,12 @@ const Login = () => {
         password,
       },{withCredentials: true});
       
-      const { message, role } = response.data;
-      console.log(role);
+      const { message, role, userId } = response.data;
+      
       if(message=="로그인 성공"){
         setItem('isLoggedin', true);
         setItem('Role', role);
+        setItem('userId', userId);
       }else{
         setItem('isLoggedin', false);
       }
@@ -40,7 +41,7 @@ const Login = () => {
     <AuthLayout title="로그인">
       <AuthForm mode="login" onAuthSubmit={handleLogin}>
         <GotoSignup to="/signup">
-          아직 샤마 회원이 아니신가요?
+          아직 잡파도 회원이 아니신가요?
         </GotoSignup>
       </AuthForm>
     </AuthLayout>

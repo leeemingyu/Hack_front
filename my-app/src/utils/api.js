@@ -2,13 +2,16 @@ import axios from 'axios';
 
 const URL = 'http://43.202.117.62:8080';
 
-// Candidates API
-export const registerCandidate = async (data) => {
+export const registerCandidate = async (candidateData) => {
   try {
-    const response = await axios.post(`${URL}/candidates/register`, data);
+    const response = await axios.post(`${URL}/candidates/register`, candidateData, {
+      headers: {
+        "Content-Type": "multipart/form-data", 
+      },
+    });
     return response.data;
   } catch (error) {
-    console.error('Candidate registration failed:', error);
+    console.error("등록 실패:", error);
     throw error;
   }
 };
@@ -16,6 +19,7 @@ export const registerCandidate = async (data) => {
 export const getCandidateById = async (id) => {
   try {
     const response = await axios.get(`${URL}/candidates/${id}`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Failed to fetch candidate:', error);
@@ -25,7 +29,7 @@ export const getCandidateById = async (id) => {
 
 export const getCandidates = async () => {
   try {
-    const response = await axios.get(`${URL}/candidates`);
+    const response = await axios.get(`${URL}/candidates/candidateInfo`);
     return response.data;
   } catch (error) {
     console.error('Failed to fetch candidates:', error);
@@ -36,10 +40,14 @@ export const getCandidates = async () => {
 // Companies API
 export const registerCompany = async (data) => {
   try {
-    const response = await axios.post(`${URL}/companies/register`, data);
+    const response = await axios.post(`${URL}/companies/register`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data", 
+      },
+    });
     return response.data;
   } catch (error) {
-    console.error('Company registration failed:', error);
+    console.error("등록 실패:", error);
     throw error;
   }
 };
@@ -56,7 +64,7 @@ export const getCompanyById = async (id) => {
 
 export const getCompanyInfo = async () => {
   try {
-    const response = await axios.get(`${URL}/companies/companyInfo`);
+    const response = await axios.get(`${URL}/companies/companies`);
     return response.data;
   } catch (error) {
     console.error('Failed to fetch company info:', error);
@@ -66,6 +74,7 @@ export const getCompanyInfo = async () => {
 
 // Offers API
 export const createOffer = async (data) => {
+  console.log(data);
   try {
     const response = await axios.post(`${URL}/offers`, data);
     return response.data;
@@ -75,15 +84,25 @@ export const createOffer = async (data) => {
   }
 };
 
-export const respondToOffer = async (offerId, data) => {
+export const respondToOffer = async (offerId, responseType) => {
   try {
-    const response = await axios.put(`${URL}/offers/${offerId}/respond`, data);
+
+    const response = await axios.put(
+      `${URL}/offers/1/respond`, 
+      { responseType }, // 요청 본문에 responseType을 포함
+      {
+        headers: {
+          'Content-Type': 'text/plain', // 필요한 경우 추가 헤더 설정
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error('Failed to respond to offer:', error);
     throw error;
   }
 };
+
 
 export const getOffersByCompanyId = async (companyId) => {
   try {
@@ -97,7 +116,8 @@ export const getOffersByCompanyId = async (companyId) => {
 
 export const getOffersByCandidateId = async (candidateId) => {
   try {
-    const response = await axios.get(`${URL}/offers/candidate/${candidateId}`);
+    const response = await axios.get(`${URL}/offers/candidate/1`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Failed to fetch offers for candidate:', error);

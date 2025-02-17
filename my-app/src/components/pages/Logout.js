@@ -14,6 +14,7 @@ const Logout = () => {
         await axios.post(`${URL}/auth/logout`);
         setItem('isLoggedin', false); // 로그아웃 상태 로컬스토리지에 저장
         removeItem('Role');
+        removeItem('userId');
         setIsLoggedOut(true); // 로그아웃 완료 후 상태 업데이트
       } catch (error) {
         console.error("Logout failed", error);

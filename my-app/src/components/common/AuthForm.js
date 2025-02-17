@@ -51,31 +51,33 @@ const AuthForm = ({ mode, onAuthSubmit, children }) => {
                 required
               />
               <MemberType>
-                <RadioWrapper>
+                <RadioWrapper checked={role === 'COMPANY'} onClick={() => setRole('COMPANY')}>
                   <Radio
                     type="radio"
                     id="company"
                     name="memberType"
                     value="COMPANY"
-                    onChange={() => setRole('COMPANY')} // role을 'COMPANY'로 변경
-                    checked={role === 'COMPANY'} // 선택된 값이 'COMPANY'일 때 체크
+                    onChange={() => setRole('COMPANY')}
+                    checked={role === 'COMPANY'}
                     required
                   />
-                  <Lable htmlFor="company">기업</Lable>
+                  <Lable htmlFor="company"> 기업</Lable>
                 </RadioWrapper>
-                <RadioWrapper>
+
+                <RadioWrapper checked={role === 'CANDIDATE'} onClick={() => setRole('CANDIDATE')}>
                   <Radio
                     type="radio"
                     id="candidate"
                     name="memberType"
                     value="CANDIDATE"
-                    onChange={() => setRole('CANDIDATE')} // role을 'CANDIDATE'로 변경
-                    checked={role === 'CANDIDATE'} // 선택된 값이 'CANDIDATE'일 때 체크
+                    onChange={() => setRole('CANDIDATE')}
+                    checked={role === 'CANDIDATE'}
                     required
                   />
-                  <Lable htmlFor="candidate">구직자</Lable>
+                  <Lable htmlFor="candidate"> 구직자</Lable>
                 </RadioWrapper>
               </MemberType>
+
             </>
           )}
           <Button
@@ -112,6 +114,7 @@ const Form = styled.form`
   padding-top: 34px;
 `;
 
+
 const Input = styled.input`
   width: 352px;
   height: 48px;
@@ -121,19 +124,32 @@ const Input = styled.input`
   padding: 0 18px;
   font-size: 16px;
   box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;  /* transition 추가 */
+  
   &:focus {
-    outline-color: #3081f6;
+    outline: none;  /* 기본 outline을 없애고 */
+    border-color: #3081f6;  /* 포커스 시 파란색 테두리 */
+    box-shadow: 0 0 5px rgba(48, 129, 246, 0.4);  /* 부드러운 그림자 추가 */
   }
 `;
+
 const MemberType = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   width: 352px;
 `;
-const RadioWrapper = styled.div`
-  width: 352px;
+const RadioWrapper = styled.label`
+  width: 165px;
+  padding: 10px 18px; 
+  border: 1px solid ${({ checked }) => (checked ? '#3081F6' : 'transparent')}; 
+  background-color: ${({ checked }) => (checked ? '#F0F7FF' : 'white')}; 
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, background-color 0.2s;
 `;
+
 const Radio = styled.input`
 
 `;

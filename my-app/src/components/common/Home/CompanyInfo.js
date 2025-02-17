@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCompanyInfo } from '../../../utils/api'; // API 함수 import
+import InfoList from './InfoList'; // InfoList 컴포넌트 import
+import styled from 'styled-components';
 
 const CompanyInfo = () => {
   const [companies, setCompanies] = useState(); // 전체 회사 정보를 저장
@@ -20,31 +22,22 @@ const CompanyInfo = () => {
   }, []); // 컴포넌트가 처음 렌더링될 때만 실행
 
   if (error) {
-    return <div>{error}</div>;
+    return <Container>{error}</Container>;
   }
 
   if (companies === undefined) {
-    return <div>로딩 중...</div>;
+    return <Container>로딩 중...</Container>;
   }
 
   if (companies.length === 0) {
-    return <div>기업 정보가 없습니다.</div>;
+    return <Container>기업 정보가 없습니다.</Container>;
   }
 
-  return (
-    <div>
-      <h2>회사 목록</h2>
-      {companies.map((company) => (
-        <div key={company.id}>
-          <h3>{company.name}</h3>
-          <p>주소: {company.address}</p>
-          <p>카테고리: {company.category}</p>
-          <p>설명: {company.text}</p>
-          
-        </div>
-      ))}
-    </div>
-  );
+  return <InfoList data={companies} type="company" />;
 };
 
 export default CompanyInfo;
+
+const Container = styled.div`
+  padding: 40px;
+`;

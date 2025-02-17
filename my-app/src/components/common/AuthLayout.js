@@ -7,7 +7,7 @@ const AuthLayout = ({ title, children }) => {
     <Container>
       <Topbar>
         <StyledNavLink to="/">
-          <Header>샤마</Header>
+          <Header>잡파도</Header>
         </StyledNavLink>
         <StyledNavLink to="/">
           <CloseImg src={CloseIcon} alt="Close" />

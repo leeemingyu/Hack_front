@@ -4,20 +4,18 @@ import { getItem, setItem } from '../../utils/localStorage';
 
 const Nav = () => {
   const isLoggedin = getItem('isLoggedin');
+  const role = getItem('Role');
   return (
     <NavContainer>
       <NavList>
         <NavItem>
           <StyledNavLink to="/" exact>
-            <HeaderIcon>샤마</HeaderIcon>
+            <HeaderIcon>잡파도</HeaderIcon>
           </StyledNavLink>
         </NavItem>
         <NavItem>
           <StyledNavLink to="/" exact>
             홈
-          </StyledNavLink>
-          <StyledNavLink to="/recruit">
-            채용
           </StyledNavLink>
           <StyledNavLink to="/housing">
             주거
@@ -25,6 +23,15 @@ const Nav = () => {
           <StyledNavLink to="/regi">
             등록
           </StyledNavLink>
+          {role === 'CANDIDATE' ? (
+            <StyledNavLink to="/offer">
+              받은 제안
+            </StyledNavLink>
+          ) : (
+            <StyledNavLink to="/sent-offers">
+              보낸 제안
+            </StyledNavLink>
+          )}
         </NavItem>
         <NavItem>
           <AuthBtn to={!isLoggedin ? "/login" : "/logout"} marginLeft={!isLoggedin ? '16px' : '0'}>
@@ -74,7 +81,7 @@ const HeaderIcon = styled.header`
   color: #191919;
 `;
 const AuthBtn = styled(NavLink)`
-  background-color: #3182f6;
+  background-color: #007bff;
   padding: 4px 12px;
   color: white;
   border-radius: 10px;
@@ -85,6 +92,6 @@ const AuthBtn = styled(NavLink)`
   margin-left: ${(props) => props.marginLeft || '0'}; /* 조건에 따라 margin-left 적용 */
 
   &:hover {
-    background-color: rgb(45, 117, 219);
+    background-color: #0056b3;
   }
 `;
